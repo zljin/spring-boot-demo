@@ -4,15 +4,15 @@ server:
     context-path: /demo
 spring:
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: 192.168.2.6:9092
     producer:
-      retries: 0
+      retries: 0        # 写入失败后的重试次数,如leader节点down掉后从新从repli节点选举
       batch-size: 16384
       buffer-memory: 33554432
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
     consumer:
-      group-id: spring-boot-demo
+      group-id: spring-boot-demo  # 指定默认消费者group_id,在kafka中，同一组中的consumer不会读取到同一个消息，依靠groud.id设置组名
       # 手动提交
       enable-auto-commit: false
       auto-offset-reset: latest
